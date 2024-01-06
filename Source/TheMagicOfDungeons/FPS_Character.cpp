@@ -22,7 +22,7 @@ void AFPS_Character::BeginPlay()
 	
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
 	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("hand_r_wepon_Socket"));
-	Gun->SetOwner(this);
+	Gun->SetOwner(this) ;
 }
 
 // Called every frame
@@ -42,6 +42,7 @@ void AFPS_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("MoveRigth"), this, &AFPS_Character::MoveRigth);
 	PlayerInputComponent->BindAxis(TEXT("LookRigth"), this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed,this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Shoot"), EInputEvent::IE_Pressed, this, &AFPS_Character::Shoot);
 
 }
 
@@ -53,6 +54,10 @@ void AFPS_Character::MoveForawrd(float AxisValue)
 void AFPS_Character::MoveRigth(float AxisValue)
 {
 	AddMovementInput(GetActorRightVector() * AxisValue);
+}
+void AFPS_Character::Shoot()
+{
+	Gun->UseMagic(GetActorRotation());
 }
 
 
