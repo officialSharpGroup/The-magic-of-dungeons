@@ -2,6 +2,8 @@
 
 
 #include "Gun.h"
+#include "MagicBall.h"
+
 
 // Sets default values
 AGun::AGun()
@@ -14,6 +16,7 @@ AGun::AGun()
 
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Root);
+
 
 }
 
@@ -31,3 +34,12 @@ void AGun::Tick(float DeltaTime)
 
 }
 
+void AGun::UseMagic(FRotator CharacterTransform)
+{
+	// Inside the Point Light class
+	FVector PointLightLocation = GetActorLocation();
+
+	UE_LOG(LogTemp, Warning, TEXT("You've been shoot!"));
+	MagicBall = GetWorld()->SpawnActor<AMagicBall>(MagicBallClass, PointLightLocation, CharacterTransform);
+	
+}

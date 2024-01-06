@@ -31,6 +31,7 @@ public:
 private:
 	void MoveForawrd(float AxisValue);
 	void MoveRigth(float AxisValue);
+	void Shoot();
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AGun> GunClass;

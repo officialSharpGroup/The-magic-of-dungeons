@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "Gun.generated.h"
 
+class AMagicBall;
+
+
 UCLASS()
 class THEMAGICOFDUNGEONS_API AGun : public AActor
 {
@@ -23,12 +26,19 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void UseMagic(FRotator CharacterTransform);
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* Root;
 
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AMagicBall> MagicBallClass;
+	UPROPERTY()
+	AMagicBall* MagicBall;
 
 	
 };
