@@ -2,6 +2,10 @@
 
 
 #include "FPS_Character.h"
+#include "Gun.h"
+
+
+
 
 // Sets default values
 AFPS_Character::AFPS_Character()
@@ -16,6 +20,9 @@ void AFPS_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
+	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("hand_r_wepon_Socket"));
+	Gun->SetOwner(this);
 }
 
 // Called every frame

@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "FPS_Character.generated.h"
 
+class AGun;
+
 UCLASS()
 class THEMAGICOFDUNGEONS_API AFPS_Character : public ACharacter
 {
@@ -29,4 +31,12 @@ public:
 private:
 	void MoveForawrd(float AxisValue);
 	void MoveRigth(float AxisValue);
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AGun> GunClass;
+
+	UPROPERTY()
+	AGun* Gun;
+
+	
 };
