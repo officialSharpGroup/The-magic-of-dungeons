@@ -3,7 +3,7 @@
 
 #include "FPS_Character.h"
 #include "Gun.h"
-
+#include "TimerManager.h"
 
 
 
@@ -19,10 +19,13 @@ AFPS_Character::AFPS_Character()
 void AFPS_Character::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	Mana = MaxMana;
+	ManaRegenerationDelay = 2.0f;
+	ManaRegenerationRate = 5.0f;
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
 	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("hand_r_wepon_Socket"));
 	Gun->SetOwner(this) ;
+	GetWorldTimerManager().SetTimer(StaminaRegenerationTimer, this, &AFPS_Character::RegenerateMana, ManaRegenerationDelay, true);
 }
 
 // Called every frame
@@ -46,6 +49,11 @@ void AFPS_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
+float AFPS_Character::GetManaPercent()
+{
+	return Mana/MaxMana;
+}
+
 void AFPS_Character::MoveForawrd(float AxisValue)
 {
 	AddMovementInput(GetActorForwardVector() * AxisValue);
@@ -55,9 +63,24 @@ void AFPS_Character::MoveRigth(float AxisValue)
 {
 	AddMovementInput(GetActorRightVector() * AxisValue);
 }
+void AFPS_Character::RegenerateMana()
+{
+	if (Mana < MaxMana)
+	{
+		Mana = FMath::Min(Mana + ManaRegenerationRate, MaxMana);
+	}
+}
+
 void AFPS_Character::Shoot()
 {
-	Gun->UseMagic(GetActorRotation());
+	if(Mana > 10){
+		Gun->UseMagic(GetActorRotation());
+		Mana -= 10;
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("You don't have enougth mana!"));
+	}
+	
 }
 
 

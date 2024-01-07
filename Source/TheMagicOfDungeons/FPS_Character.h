@@ -28,16 +28,42 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintPure)
+	float GetManaPercent();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mana")
+	float MaxMana = 100;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mana")
+	float Mana;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mana")
+	float ManaRegenerationRate;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stamina")
+	float ManaRegenerationDelay;
+
+	
+
 private:
 	void MoveForawrd(float AxisValue);
+
 	void MoveRigth(float AxisValue);
+
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
+	void RegenerateMana();
+
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
 	void Shoot();
+
+	FTimerHandle StaminaRegenerationTimer;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AGun> GunClass;
 
 	UPROPERTY()
 	AGun* Gun;
+
 
 	
 };
