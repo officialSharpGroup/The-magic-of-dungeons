@@ -2,9 +2,8 @@
 
 
 #include "TriggerComponent.h"
-#include "MovingDoor.h"
 
-AMovingDoor MovingDoor;
+
 UTriggerComponent::UTriggerComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -26,7 +25,6 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	{
 		FString ActorName = Actors[0]->GetActorNameOrLabel();
 		UE_LOG(LogTemp, Display, TEXT("Overlaping: %s"), *ActorName);
-		MovingDoor.MoveDoor(DeltaTime);
 	}
 }
 
