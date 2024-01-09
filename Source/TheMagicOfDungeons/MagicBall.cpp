@@ -2,12 +2,20 @@
 
 
 #include "MagicBall.h"
+#include "GameFramework/Actor.h"
 
 // Sets default values
 AMagicBall::AMagicBall()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	RootComponent = Mesh;
+
+
+	CollisionComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionComponent"));
+
+
 
 }
 
@@ -25,3 +33,11 @@ void AMagicBall::Tick(float DeltaTime)
 
 }
 
+void AMagicBall::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+{
+
+	Super::NotifyHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
+
+	UE_LOG(LogTemp, Warning, TEXT("HIT"));
+	Destroy();
+}
