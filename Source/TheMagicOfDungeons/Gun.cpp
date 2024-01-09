@@ -17,7 +17,9 @@ AGun::AGun()
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Root);
 
+	MeshMagicBall = nullptr; // Inicjalizuj MeshMagicBall na nullptr, aby unikn¹æ b³êdów
 
+	
 }
 
 // Called when the game starts or when spawned
@@ -34,12 +36,17 @@ void AGun::Tick(float DeltaTime)
 
 }
 
-void AGun::UseMagic(FRotator CharacterTransform)
+void AGun::UseMagic(FRotator CharacterTransform, FVector ForceDirectionWorldSpace)
 {
-	// Inside the Point Light class
-	FVector PointLightLocation = GetActorLocation();
 
 	UE_LOG(LogTemp, Warning, TEXT("You've been shoot!"));
-	MagicBall = GetWorld()->SpawnActor<AMagicBall>(MagicBallClass, PointLightLocation, CharacterTransform);
+	MagicBall = GetWorld()->SpawnActor<AMagicBall>(MagicBallClass, GetActorLocation() , CharacterTransform);
+	if (MagicBall)
+	{
+
+		MeshMagicBall = MagicBall->Mesh;
+		MeshMagicBall->AddForce(ForceDirectionWorldSpace * ForceStrength);
+	}
+	
 	
 }

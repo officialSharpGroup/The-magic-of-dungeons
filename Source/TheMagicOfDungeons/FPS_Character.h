@@ -31,16 +31,26 @@ public:
 	UFUNCTION(BlueprintPure)
 	float GetManaPercent();
 
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercent();
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mana")
 	float MaxMana = 100;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mana")
 	float Mana;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Health")
+	float MaxHealth = 100;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
+	float Health;
+
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mana")
 	float ManaRegenerationRate;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stamina")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mana")
 	float ManaRegenerationDelay;
 
 	

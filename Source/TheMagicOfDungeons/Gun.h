@@ -26,7 +26,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void UseMagic(FRotator CharacterTransform);
+
+	void UseMagic(FRotator CharacterTransform, FVector ForceDirectionWorldSpace);
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -37,8 +38,17 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AMagicBall> MagicBallClass;
+
 	UPROPERTY()
 	AMagicBall* MagicBall;
 
+	UPROPERTY()
+	FVector ForceDirection = FVector(1000.0f, 0.0f, 0.0f); // Kierunek si³y
+
+	UPROPERTY()
+	float ForceStrength = 100.0f; // Si³a si³y
 	
+	UStaticMeshComponent* MeshMagicBall;
+
+	FVector PointLightLocation;
 };

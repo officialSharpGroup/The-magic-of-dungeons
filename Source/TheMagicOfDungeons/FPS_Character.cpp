@@ -54,6 +54,11 @@ float AFPS_Character::GetManaPercent()
 	return Mana/MaxMana;
 }
 
+float AFPS_Character::GetHealthPercent()
+{
+	return Health / MaxHealth;
+}
+
 void AFPS_Character::MoveForawrd(float AxisValue)
 {
 	AddMovementInput(GetActorForwardVector() * AxisValue);
@@ -74,7 +79,7 @@ void AFPS_Character::RegenerateMana()
 void AFPS_Character::Shoot()
 {
 	if(Mana > 10){
-		Gun->UseMagic(GetActorRotation());
+		Gun->UseMagic(GetActorRotation(), GetActorForwardVector());
 		Mana -= 10;
 	}
 	else {
