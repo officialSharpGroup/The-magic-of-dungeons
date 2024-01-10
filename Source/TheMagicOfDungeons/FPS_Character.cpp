@@ -24,7 +24,7 @@ void AFPS_Character::BeginPlay()
 	ManaRegenerationRate = 5.0f;
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
 	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("hand_r_wepon_Socket"));
-	Gun->SetOwner(this) ;
+	Gun->SetOwner(this);
 	GetWorldTimerManager().SetTimer(StaminaRegenerationTimer, this, &AFPS_Character::RegenerateMana, ManaRegenerationDelay, true);
 }
 
@@ -39,6 +39,7 @@ void AFPS_Character::Tick(float DeltaTime)
 void AFPS_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	Health = 100;
 
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &AFPS_Character::MoveForawrd);
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APawn::AddControllerPitchInput);
@@ -56,7 +57,7 @@ float AFPS_Character::GetManaPercent()
 
 float AFPS_Character::GetHealthPercent()
 {
-	return Health / MaxHealth;
+	return Health/MaxHealth;
 }
 
 void AFPS_Character::MoveForawrd(float AxisValue)

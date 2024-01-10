@@ -3,6 +3,11 @@
 
 #include "MagicBall.h"
 #include "GameFramework/Actor.h"
+#include "UObject/Object.h"
+
+#include "HealthInterface.h"
+
+
 
 // Sets default values
 AMagicBall::AMagicBall()
@@ -35,9 +40,8 @@ void AMagicBall::Tick(float DeltaTime)
 
 void AMagicBall::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
 {
+    Super::NotifyHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
 
-	Super::NotifyHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
-
-	UE_LOG(LogTemp, Warning, TEXT("HIT"));
-	Destroy();
+   
+    Destroy();
 }
