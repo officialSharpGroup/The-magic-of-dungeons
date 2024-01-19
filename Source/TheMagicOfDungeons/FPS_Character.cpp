@@ -20,6 +20,7 @@ void AFPS_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	Mana = MaxMana;
+	Health = MaxHealth;
 	ManaRegenerationDelay = 2.0f;
 	ManaRegenerationRate = 5.0f;
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
@@ -39,7 +40,7 @@ void AFPS_Character::Tick(float DeltaTime)
 void AFPS_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	Health = 100;
+	
 
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &AFPS_Character::MoveForawrd);
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APawn::AddControllerPitchInput);

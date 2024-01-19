@@ -5,8 +5,6 @@
 #include "GameFramework/Actor.h"
 #include "UObject/Object.h"
 
-#include "HealthInterface.h"
-
 
 
 // Sets default values
